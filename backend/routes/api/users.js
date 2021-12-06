@@ -64,15 +64,15 @@ const validateSignup = [
     .withMessage(
       'Password must contain at least 1 lowercase letter, uppercase letter, number, and special character (i.e. "!@#$%^&*")'
     ),
-  check('confirmPassword')
-    .exists({ checkFalsy: true })
-    .withMessage(`Please confirm Password.`)
-    .custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error('Passwords do not match.');
-      }
-      return true;
-    }),
+  // check('confirmPassword')
+  //   .exists({ checkFalsy: true })
+  //   .withMessage(`Please confirm Password.`)
+  //   .custom((value, { req }) => {
+  //     if (value !== req.body.password) {
+  //       throw new Error('Passwords do not match.');
+  //     }
+  //     return true;
+  //   }),
   handleValidationErrors
 ];
 
