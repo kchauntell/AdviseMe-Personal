@@ -1,14 +1,34 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Note = sequelize.define('Note', {
-    title: DataTypes.STRING,
-    note: DataTypes.TEXT,
-    userId: DataTypes.INTEGER,
-    noteBookId: DataTypes.INTEGER,
-    hidden: DataTypes.BOOLEAN
+    title: {
+      allowNull: false,
+      type: DataTypes.STRING,
+      validate: {
+        len: [3, 150]
+      }
+    },
+    note: {
+      allowNull: false,
+      type: DataTypes.TEXT,
+    },
+    userId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    noteBookId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    hidden: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN
+    }
   }, {});
   Note.associate = function(models) {
-    // associations can be defined here
+    Note.belongsTo(models.User, { foreignKey: 'userId' });
+    Note.belongsTo(models.Notebook, { foreignKey: 'noteBookId' });
+    Note.hasMany(models.Advice, { foreignKey: 'notesId', onDelete: 'CASCADE', hooks: true })
   };
   return Note;
 };
