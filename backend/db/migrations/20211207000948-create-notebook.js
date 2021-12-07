@@ -15,7 +15,7 @@ module.exports = {
       },
       genre: {
         allowNull: false,
-        type: Sequelize.STRING(20)
+        type: Sequelize.STRING(100)
       },
       hidden: {
         allowNull:false,

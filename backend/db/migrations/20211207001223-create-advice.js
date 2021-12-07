@@ -16,9 +16,13 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      notedId: {
+      notesId: {
         allowNull: false,
         type: Sequelize.INTEGER
+      },
+      hidden: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

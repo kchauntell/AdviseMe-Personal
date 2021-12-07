@@ -13,8 +13,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    notedId: {
+    notesId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    hidden: {
+      type: DataTypes.BOOLEAN,
       allowNull: false,
     },
   }, {});

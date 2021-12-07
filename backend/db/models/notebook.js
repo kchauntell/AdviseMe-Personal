@@ -10,13 +10,16 @@ module.exports = (sequelize, DataTypes) => {
       },
     genre: {
       allowNull: false,
-      type: DataTypes.STRING,},
+      type: DataTypes.STRING,
+    },
     hidden: {
       allowNull: false,
-      type: DataTypes.BOOLEAN,},
+      type: DataTypes.BOOLEAN,
+    },
     userId: {
       allowNull: false,
-      type: DataTypes.INTEGER}
+      type: DataTypes.INTEGER
+    }
   }, {});
   Notebook.associate = function(models) {
     Notebook.belongsTo(models.User, { foreignKey: 'userId' });
