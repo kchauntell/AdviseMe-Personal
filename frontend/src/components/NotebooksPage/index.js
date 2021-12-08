@@ -36,15 +36,6 @@ function NotebooksPage() {
     )
   };
 
-if(sessionUser.id === Owner) {
-  ownerButtons = (
-    <div>
-      <button>Edit</button>
-      <button>Delete</button>
-    </div>
-  )
-}
-
 
   useEffect(() => {
     dispatch(getNotebooks());
