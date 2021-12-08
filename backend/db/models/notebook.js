@@ -4,10 +4,11 @@ module.exports = (sequelize, DataTypes) => {
   const Notebook = sequelize.define('Notebook', {
     title: {
       allowNull: false,
-      type: DataTypes.STRING,},
+      type: DataTypes.STRING,
       validate: {
         len: [3, 150]
       },
+    },
     genre: {
       allowNull: false,
       type: DataTypes.STRING,

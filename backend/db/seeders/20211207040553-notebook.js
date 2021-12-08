@@ -41,7 +41,7 @@ module.exports = {
         },
         {
           id: 5,
-          title: `Help Me! My Girlfriend trippin'...`,
+          title: 'Help Me! My Girlfriend trippin...',
           genre: 'Romance/Dating',
           hidden: false,
           userId: 1,
