@@ -19,7 +19,7 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
-          <Route path="/notebooks">
+          <Route exact path="/notebooks">
             <NotebooksPage />
           </Route>
           {/* <Route path="/signup">
