@@ -14,18 +14,14 @@ function PersonalNBPage () {
   const history = useHistory();
   const {notebookId} = useParams();
 
-  console.log(notebookId)
+  // console.log(notebookId)
 
   useEffect(() => {
     dispatch(getNotebooks())
   }, [dispatch])
 
-  const handleDelete = async (notebookId) => {}
   // console.log(sessionUser.id);
   // console.log(notebooks)
-
-  
-
 
   return (
     <div>
@@ -35,7 +31,7 @@ function PersonalNBPage () {
         <NavLink to={`/notebooks/${sessionUser.username}/createNotebook`}>Create Notebook</NavLink>
       </button>
       {notebooks.map(notebook => {
-        console.log(notebook.userId)
+        // console.log(notebook.userId)
         if(sessionUser.id === notebook.userId) {
           return (
             <div key={notebook.id}>

@@ -16,7 +16,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
 }));
 
 //Create Notebook
-router.post('/', asyncHandler(async(_req, res) => {
+router.post('/', requireAuth, asyncHandler(async(req, res) => {
   const {
     title,
     genre,
@@ -30,7 +30,7 @@ router.post('/', asyncHandler(async(_req, res) => {
     hidden,
     userId
   })
-
+  console.log(newNotebook);
   res.json(newNotebook)
 }))
 

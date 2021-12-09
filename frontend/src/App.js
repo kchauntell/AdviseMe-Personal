@@ -8,6 +8,7 @@ import PersonalNBPage from "./components/PersonalNBPage";
 import HomePage from './components/HomePage';
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import CreateNotebookPage from "./components/CreateNotebookPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,8 +28,11 @@ function App() {
           <Route exact path="/notebooks">
             <NotebooksPage />
           </Route>
-          <Route path="/notebooks/:username">
+          <Route exact path="/notebooks/:username">
             <PersonalNBPage />
+          </Route>
+          <Route exact path='/notebooks/:username/createNotebook'>
+            <CreateNotebookPage />
           </Route>
         </Switch>
       )}

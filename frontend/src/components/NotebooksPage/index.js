@@ -20,11 +20,11 @@ function NotebooksPage() {
     loggedInButtons = (
       <div>
         <button>
-          <i class="fas fa-pencil-alt"></i>
+          <i className="fas fa-pencil-alt"></i>
           <NavLink to={`/notebooks/${sessionUser.username}/createNotebook`}>Create Notebook</NavLink>
         </button>
         <button>
-          <i class="fas fa-fist-raised">
+          <i className="fas fa-fist-raised">
             <NavLink to={`/notebooks/${sessionUser.username}`}>Safe Space</NavLink>
           </i>
         </button>
