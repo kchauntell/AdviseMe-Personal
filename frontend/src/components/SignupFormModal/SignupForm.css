@@ -1,0 +1,27 @@
+#SignupModal {
+  border-radius: 5px;
+  border-style: double;
+  box-shadow: 10px 10px ;
+  padding: 20px;
+  margin: 20px;
+}
+
+#SignUpForm input{
+  width: 100%;
+  color: lightslategray;
+}
+
+#SignUpForm {
+  justify-content: center;
+}
+
+
+#SignupbuttonDiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#SignupbuttonDiv button {
+  box-shadow: 5px 5px;
+}

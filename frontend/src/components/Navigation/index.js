@@ -25,12 +25,22 @@ function Navigation({ isLoaded }) {
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
-        {isLoaded && sessionLinks}
-      </li>
-    </ul>
+    <div id='NavBar'>
+      <>
+        <nav id='navLinks'>
+          <NavLink
+            activeClassName='active'
+            id='link'
+            exact to="/">Home</NavLink>
+          <> || </>
+          <NavLink
+          activeClassName='active'
+          id='link'
+          to='/notebooks'>Notebooks Library</NavLink>
+          {isLoaded && sessionLinks}
+        </nav>
+      </>
+    </div>
   );
 }
 
