@@ -1,0 +1,30 @@
+#loginModal {
+  border-radius: 5px;
+  border-style: double;
+  box-shadow: 10px 10px ;
+  padding: 20px;
+  margin: 20px;
+}
+
+#logInForm input {
+  width: 100%
+}
+
+#logInForm button {
+  display: inline-flex;
+  box-shadow: 5px 5px ;
+  width: 60%;
+  justify-content: center;
+  text-align: center;
+}
+
+#logInForm input {
+  color: lightslategray;
+
+}
+
+#LogInbuttonDiv {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}

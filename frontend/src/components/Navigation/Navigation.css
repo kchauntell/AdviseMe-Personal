@@ -1,1 +1,13 @@
+.active{
+  border: white inset;
+  border-radius: 5px;
+}
 
+#navLinks {
+}
+
+#link {
+  border-radius: 5px;
+  color: white;
+
+}
