@@ -10,7 +10,45 @@ router.get('/', asyncHandler(async (req, res) => {
   return res.json(notebooks);
 }));
 
+router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
+  const notebook = await Notebook.findByPk(req.params.id, { include: [Note, User] });
+  return res.json(notebook)
+}));
+
+//Create Notebook
+router.post('/', asyncHandler(async(_req, res) => {
+  const {
+    title,
+    genre,
+    hidden,
+    userId,
+  } = req.body
+
+  const newNotebook = await Notebook.create({
+    title,
+    genre,
+    hidden,
+    userId
+  })
+
+  res.json(newNotebook)
+}))
 
 
+//delete Notebook
+router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
+  const userId = req.user.id;
+  console.log(userId);
+  const notebookId = req.params.id;
+
+  const notebook = await Notebook.findByPk(notebookId);
+
+  if (notebook && notebook.userId === userId) {
+    await notebook.destroy();
+    res.json(notebook);
+  } else {
+    next(error)
+  }
+}))
 
 module.exports = router;

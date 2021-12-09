@@ -1,7 +1,7 @@
 import { getNotebooks } from '../../store/notebook';
 import { useDispatch, useSelector } from 'react-redux'; //add useDispatch
 // import React, { useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, useParams, useHistory } from 'react-router-dom';
 import './PersonalNB.css';
 import { useEffect } from 'react';
 
@@ -11,15 +11,20 @@ function PersonalNBPage () {
   const notebooks = useSelector(state => {
     return Object.values(state.notebook);
   });
+  const history = useHistory();
+  const {notebookId} = useParams();
+
+  console.log(notebookId)
 
   useEffect(() => {
     dispatch(getNotebooks())
   }, [dispatch])
 
+  const handleDelete = async (notebookId) => {}
   // console.log(sessionUser.id);
   // console.log(notebooks)
 
-
+  
 
 
   return (
