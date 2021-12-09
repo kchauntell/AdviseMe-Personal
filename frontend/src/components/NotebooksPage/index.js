@@ -20,10 +20,13 @@ function NotebooksPage() {
     loggedInButtons = (
       <div>
         <button>
+          <i class="fas fa-pencil-alt"></i>
           <NavLink to={`/notebooks/${sessionUser.username}/createNotebook`}>Create Notebook</NavLink>
         </button>
         <button>
-          <NavLink to={`/notebooks/${sessionUser.username}`}>Personal Collection</NavLink>
+          <i class="fas fa-fist-raised">
+            <NavLink to={`/notebooks/${sessionUser.username}`}>Safe Space</NavLink>
+          </i>
         </button>
       </div>
     )

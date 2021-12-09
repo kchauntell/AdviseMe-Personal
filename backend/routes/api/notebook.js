@@ -8,7 +8,9 @@ const router = express.Router();
 router.get('/', asyncHandler(async (req, res) => {
   const notebooks = await Notebook.findAll({ include: [Note, User]});
   return res.json(notebooks);
-}))
+}));
+
+
 
 
 module.exports = router;

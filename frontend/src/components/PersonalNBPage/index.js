@@ -26,6 +26,7 @@ function PersonalNBPage () {
     <div>
       <h1>Welcome to your Safe Space: {sessionUser.username}</h1>
       <button>
+        <i class="fas fa-pencil-alt"></i>
         <NavLink to={`/notebooks/${sessionUser.username}/createNotebook`}>Create Notebook</NavLink>
       </button>
       {notebooks.map(notebook => {
@@ -34,8 +35,12 @@ function PersonalNBPage () {
           return (
             <div key={notebook.id}>
               <NavLink to={`/notebooks/${notebook.id}`}>{notebook.title}</NavLink>
-              <button>Edit</button>
-              <button>Delete</button>
+              <button>
+                <i class="far fa-edit"></i>
+              </button>
+              <button>
+                <i class="fas fa-eraser"></i>
+              </button>
             </div>
           )
         }
