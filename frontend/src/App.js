@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 // import LoginFormPage from "./components/LoginFormPage";
 // import SignupFormPage from "./components/SignupForm";
 import NotebooksPage from './components/NotebooksPage';
+import PersonalNBPage from "./components/PersonalNBPage";
 import HomePage from './components/HomePage';
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
@@ -23,12 +24,12 @@ function App() {
           <Route exact path='/'>
             <HomePage />
           </Route>
-          <Route path="/notebooks">
+          <Route exact path="/notebooks">
             <NotebooksPage />
           </Route>
-          {/* <Route path="/signup">
-            <SignupFormPage />
-          </Route> */}
+          <Route path="/notebooks/:username">
+            <PersonalNBPage />
+          </Route>
         </Switch>
       )}
     </>

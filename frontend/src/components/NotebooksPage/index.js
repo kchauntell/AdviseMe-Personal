@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 // import * as notebookActions from '../../store/notebook';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNotebooks } from '../../store/notebook';
@@ -13,15 +13,8 @@ function NotebooksPage() {
     return Object.values(state.notebook);
   });
 
-  let noteBookOwnerIds = notebooks.map((notebook) => notebook);
-  let Owner =Object.values(noteBookOwnerIds).map(owner => owner.id);
-
-
-  // console.log(sessionUser.id);
-  // console.log(notebooks)
-
   let loggedInButtons;
-  let ownerButtons;
+
 
   if(sessionUser) {
     loggedInButtons = (
@@ -51,7 +44,7 @@ function NotebooksPage() {
           // console.log(notebook)
             return (
               <div key={notebook.id}>
-                <NavLink to={`/notebook/${notebook.id}`}>
+                <NavLink to={`/notebook/public-${notebook.id}`}>
                   {notebook.title}
                 </NavLink>
                 <div>
