@@ -20,16 +20,19 @@ function CreateNotebookPage () {
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
 
+  // const [user, setUser ] = useState("")
   const [title, setTitle] = useState("")
   const [genre, setGenre] = useState("");
   const [hidden, setHidden] = useState(false);
   const [errors, setErrors] = useState([]);
 
+  console.log(notebookId);
+
   useEffect(() => {
     dispatch(getNotebooks());
   }, [dispatch]);
 
-  console.log(sessionUser.username)
+  // console.log(sessionUser.username)
 
   const handleSubmit = async (e) => {
     e.preventDefault();

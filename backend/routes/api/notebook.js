@@ -7,6 +7,7 @@ const router = express.Router();
 
 router.get('/', asyncHandler(async (req, res) => {
   const notebooks = await Notebook.findAll({ include: [Note, User]});
+
   return res.json(notebooks);
 }));
 
@@ -38,14 +39,13 @@ router.post('/', requireAuth, asyncHandler(async(req, res) => {
 //delete Notebook
 router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
   const userId = req.user.id;
-  console.log(userId);
   const notebookId = req.params.id;
 
   const notebook = await Notebook.findByPk(notebookId);
 
   if (notebook && notebook.userId === userId) {
     await notebook.destroy();
-    res.json(notebook);
+    res.json('success');
   } else {
     next(error)
   }

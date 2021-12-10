@@ -32,7 +32,6 @@ function NotebooksPage() {
     )
   };
 
-
   useEffect(() => {
     dispatch(getNotebooks());
   }, [dispatch])
@@ -44,24 +43,12 @@ function NotebooksPage() {
       <div>
         {loggedInButtons}
         {notebooks.map((notebook) => {
-          // console.log(notebook)
+          // console.log(notebook.User.username)
             return (
               <div key={notebook.id}>
                 <NavLink to={`/notebook/public-${notebook.id}`}>
                   {notebook.title}
                 </NavLink>
-                <div>
-                  {notebook.Notes.map(note => {
-                    // if(notebook.hidden === false) {
-                    return (
-                      <span key={note.id}>
-                        <p>{note.title}</p>
-                        <p> Posted By: {notebook.User.username}</p>
-                      </span>
-                    )
-                    // }
-                  })}
-                </div>
               </div>
             )
         })}

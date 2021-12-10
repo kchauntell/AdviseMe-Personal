@@ -21,7 +21,7 @@ const addNotebook = (newNotebook) => {
 const deleteNotebook = (notebookId) => {
   return {
     type: DELETE_NOTEBOOK,
-    payload: notebookId
+    notebookId,
   }
 }
 
@@ -50,6 +50,19 @@ export const createNotebook = (data) => async (dispatch) => {
   }
 }
 
+export const removeNotebook = (notebookId) => async dispatch => {
+  console.log(notebookId, '------------------');
+  const res = await csrfFetch(`/api/notebook/${notebookId}`, {
+    method: 'DELETE'
+  });
+
+  if(res.ok) {
+    const notebook = await res.json();
+    console.log(notebook)
+    dispatch(deleteNotebook(notebook));
+  }
+}
+
 const initialState = {};
 
 const notebookReducer = (state = initialState, action) => {
@@ -75,13 +88,13 @@ const notebookReducer = (state = initialState, action) => {
         newState[action.newNotebook.id] = action.newNotebook
         return newState;
       }
-      return {
-        ...state,
-        [action.newNotebook.id]: {
-          ...state[action.newNotebook.id],
-          ...action.newNotebook
-        }
-      }
+      // return {
+      //   ...state,
+      //   [action.newNotebook.id]: {
+      //     ...state[action.newNotebook.id],
+      //     ...action.newNotebook
+      //   }
+      // }
     };
     case DELETE_NOTEBOOK: {
       newState={...state};
