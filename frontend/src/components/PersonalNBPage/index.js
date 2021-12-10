@@ -1,10 +1,9 @@
-import { getNotebooks } from '../../store/notebook';
-import { useDispatch, useSelector } from 'react-redux'; //add useDispatch
-// import React, { useEffect } from 'react';
-import * as notebookActions from '../../store/notebook';
-import { NavLink, useParams, useHistory } from 'react-router-dom';
+import { getNotebooks, getNotebook, removeNotebook } from '../../store/notebook';
+import { useDispatch, useSelector } from 'react-redux';
+// import * as notebookActions from '../../store/notebook';
+import { NavLink, useHistory } from 'react-router-dom';
 import './PersonalNB.css';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 function PersonalNBPage () {
   const sessionUser = useSelector(state => state.session.user);
@@ -12,23 +11,31 @@ function PersonalNBPage () {
   const notebooks = useSelector(state => {
     return Object.values(state.notebook);
   });
-  const history = useHistory();
-  // const {notebookId} = useParams();
+  const notebook = useSelector(state => {
+    let notebooks = Object.values(state.notebook);
+    let notebook = notebooks.map(notebook => notebook.id);
+    return notebook;
+  })
 
-  // console.log(notebookId)
+  const history = useHistory();
+  console.log(notebook)
 
   useEffect(() => {
-    dispatch(getNotebooks())
-  }, [dispatch])
+    dispatch(getNotebooks());
+  }, [dispatch]);
 
-  // console.log(sessionUser.id);
-  // console.log(notebookId)
+  useEffect(() => {
+    dispatch(getNotebook());
+  }, [dispatch]);
 
-  const handleDelete = async (e) => {
+  const handleDelete = (e) => {
     e.preventDefault();
 
-    await dispatch(notebookActions.removeNotebook())
-    history.push(`/notebooks/${sessionUser.username}`)
+    notebook.map(async (book) => {
+    await dispatch(removeNotebook(book))
+  });
+  
+  history.push(`/notebooks/${sessionUser.username}`)
   }
 
   return (

@@ -1,6 +1,7 @@
 import { csrfFetch } from './csrf';
 
 const LOAD_NOTEBOOKS = 'notebook/LOAD_NOTEBOOKS';
+const LOAD_NOTEBOOK = 'notebook/LOAD_NOTEBOOK'
 const ADD_NOTEBOOK = 'notebook/ADD_NOTEBOOK';
 const DELETE_NOTEBOOK = 'notebook/DELETE_NOTEBOOK'
 
@@ -11,6 +12,13 @@ const loadNotebooks = (notebooks) => {
   }
 }
 
+const loadNotebook = (singleNotebook) => {
+  return {
+    type: LOAD_NOTEBOOK,
+    singleNotebook,
+  }
+}
+
 const addNotebook = (newNotebook) => {
   return {
     type: ADD_NOTEBOOK,
@@ -18,10 +26,10 @@ const addNotebook = (newNotebook) => {
   }
 }
 
-const deleteNotebook = (notebookId) => {
+const deleteNotebook = (notebook) => {
   return {
     type: DELETE_NOTEBOOK,
-    notebookId,
+    notebook,
   }
 }
 
@@ -33,6 +41,15 @@ export const getNotebooks = () => async(dispatch) => {
     dispatch(loadNotebooks(library));
   }
 };
+
+export const getNotebook = (notebookId) => async(dispatch) => {
+  const res = await csrfFetch(`api/notebook/${notebookId}`);
+
+  if(res.ok) {
+    const notebook = await res.json();
+    dispatch(loadNotebook(notebook));
+  }
+}
 
 export const createNotebook = (data) => async (dispatch) => {
   const response = await csrfFetch(`/api/notebook`, {
@@ -50,15 +67,15 @@ export const createNotebook = (data) => async (dispatch) => {
   }
 }
 
-export const removeNotebook = (notebookId) => async dispatch => {
-  console.log(notebookId, '------------------');
-  const res = await csrfFetch(`/api/notebook/${notebookId}`, {
+export const removeNotebook = (notebook) => async dispatch => {
+  const res = await csrfFetch(`/api/notebook/${notebook}`, {
     method: 'DELETE'
   });
+  // console.log(notebook, '------------------');
 
   if(res.ok) {
     const notebook = await res.json();
-    console.log(notebook)
+    // console.log(notebook, '*********************');
     dispatch(deleteNotebook(notebook));
   }
 }
@@ -75,6 +92,16 @@ const notebookReducer = (state = initialState, action) => {
       });
       return {
         ...allNotebooks,
+        ...state,
+      }
+    }
+    case LOAD_NOTEBOOK: {
+      const Notebook = {};
+      action.singleNotebook.map(book => {
+        return Notebook[book.id] = book;
+      });
+      return {
+        ...Notebook,
         ...state,
       }
     }
