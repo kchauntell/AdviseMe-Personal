@@ -100,7 +100,7 @@ function CreateNotebookPage ({ hideForm }) {
           <input
             type='checkbox'
             value={hidden}
-            onChange={(e) => handleChange(e)}
+            onClick={(e) => handleChange(e)}
             >
           </input>
         </label>
