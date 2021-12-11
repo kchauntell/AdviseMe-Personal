@@ -1,0 +1,15 @@
+.fab.is-hidden {
+  transform: scale(0);
+}
+
+.fab:hover {
+  box-shadow: 0 6px 8px rgb(0, 0, 0, 0.3);
+}
+
+.fab span {
+  transition: transform 0.5s;
+}
+
+.fab:active span {
+  transform: rotate(360deg);
+}

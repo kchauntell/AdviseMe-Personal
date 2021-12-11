@@ -28,11 +28,8 @@ function App() {
           <Route exact path="/notebooks">
             <NotebooksPage />
           </Route>
-          <Route exact path="/notebooks/:username">
+          <Route exact path={["/notebooks/:username", "/notebooks/:username/notebook/:notebookId"]}>
             <PersonalNBPage />
-          </Route>
-          <Route exact path='/notebooks/:username/createNotebook'>
-            <CreateNotebookPage />
           </Route>
         </Switch>
       )}

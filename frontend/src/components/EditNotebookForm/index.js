@@ -4,7 +4,7 @@ import * as notebookActions from '../../store/notebook';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
 import { getNotebooks } from '../../store/notebook';
-import './CreateNotebook.css';
+import './EditNotebook.css';
 
 const genres = [
   'General Relationships',
@@ -14,34 +14,30 @@ const genres = [
 ]
 
 
-function CreateNotebookPage ({ hideForm }) {
+function EditNotebookForm ({ hideForm }) {
   const dispatch = useDispatch();
-  const {notebookId} = useParams();
+  const { notebookId } = useParams();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
 
-  // const [user, setUser ] = useState("")
   const [title, setTitle] = useState("")
   const [genre, setGenre] = useState("");
   const [hidden, setHidden] = useState(false);
   const [errors, setErrors] = useState([]);
 
-  console.log(notebookId);
-
   useEffect(() => {
     dispatch(getNotebooks());
   }, [dispatch]);
 
-  // console.log(sessionUser.username)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(title === '') {
+    if (title === '') {
       return
     }
 
-    await dispatch(notebookActions.createNotebook({title, genre, hidden, userId: sessionUser.id}));
+    await dispatch(notebookActions.createNotebook({ title, genre, hidden, userId: sessionUser.id }));
     history.push(`/notebooks/${sessionUser.username}`)
     hideForm();
   }
@@ -49,7 +45,7 @@ function CreateNotebookPage ({ hideForm }) {
   const handleCancelClick = (e) => {
     e.preventDefault();
     hideForm();
-    history.push(`/notebooks/${ sessionUser.username }`)
+    history.push(`/notebooks/${sessionUser.username}`)
   };
 
   const handleChange = (e) => {
@@ -86,10 +82,10 @@ function CreateNotebookPage ({ hideForm }) {
               onChange={(e) => setGenre(e.target.value)}
               placeholder='Enlighten us with your wisdom'
               required >
-                {genres.map((genre) => {
-                  return (
-                    <option key={genre}>{`${genre}`}</option>
-                  )
+              {genres.map((genre) => {
+                return (
+                  <option key={genre}>{`${genre}`}</option>
+                )
               })}
             </select>
           </div>
@@ -101,7 +97,7 @@ function CreateNotebookPage ({ hideForm }) {
             type='checkbox'
             value={hidden}
             onChange={(e) => handleChange(e)}
-            >
+          >
           </input>
         </label>
       </div>
@@ -109,7 +105,7 @@ function CreateNotebookPage ({ hideForm }) {
       <button type="button" onClick={handleCancelClick}>Cancel</button>
     </form>
   )
+
 }
 
-
-export default CreateNotebookPage;
+export default EditNotebookForm;
