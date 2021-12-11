@@ -20,7 +20,7 @@ function PersonalNBPage () {
   });
   const notebook = useSelector(state => {
 
-    return state.notebook;
+    return state.notebook[notebookId];
   });
   const history = useHistory();
   console.log(notebookId);
@@ -30,13 +30,13 @@ function PersonalNBPage () {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getNotebook(notebookId));
-  }, [dispatch]);
+    dispatch(getNotebook(notebook));
+  }, [dispatch, notebook]);
 
   const handleDelete = async (e) => {
     e.preventDefault();
 
-    await dispatch(removeNotebook())
+    await dispatch(removeNotebook(notebookId))
     history.push(`/notebooks/${sessionUser.username}`)
   }
 
@@ -50,16 +50,16 @@ function PersonalNBPage () {
           // console.log(notebook.id)
           return (
             <div key={notebook.id}>
-              <NavLink to={`/notebooks/${sessionUser.username}/notebook/${notebook.id}`}>{notebook.title}</NavLink>
-              <button>
-              <EditFab key={notebook.id} hidden={showEditForm} onClick={() => setShowEditForm(true)} />
-                {/* <i className="far fa-edit"></i> */}
-              </button>
-              <button
-              onClick={handleDelete}
-              >
-                <i className="fas fa-eraser"></i>
-              </button>
+              <div>
+                <NavLink to={`/notebooks/${sessionUser.username}/notebook/${notebook.id}`}>{notebook.title}</NavLink>
+                <EditFab key={notebook.id} hidden={showEditForm} onClick={() => setShowEditForm(true)} />
+                  {/* <i className="far fa-edit"></i> */}
+                <button
+                onClick={handleDelete}
+                >
+                  <i className="fas fa-eraser"></i>
+                </button>
+              </div>
             </div>
           )
         }

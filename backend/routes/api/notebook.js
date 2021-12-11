@@ -35,6 +35,13 @@ router.post('/', requireAuth, asyncHandler(async(req, res) => {
   res.json(newNotebook)
 }))
 
+//Edit Notebook
+router.put('/:id(\\d+)', asyncHandler(async (req, res) => {
+  const id = await Notebook.update(req.body);
+  const notebook = await Notebook.one(id);
+  return res.json(notebook);
+}));
+
 
 //delete Notebook
 router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res, next) => {
@@ -50,5 +57,6 @@ router.delete('/:id(\\d+)', requireAuth, asyncHandler(async (req, res, next) => 
     next(error)
   }
 }))
+
 
 module.exports = router;

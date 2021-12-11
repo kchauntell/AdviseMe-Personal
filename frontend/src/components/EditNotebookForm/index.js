@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import * as notebookActions from '../../store/notebook';
 import { useDispatch, useSelector } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
-import { getNotebooks } from '../../store/notebook';
+import { getNotebooks, updateNotebook } from '../../store/notebook';
 import './EditNotebook.css';
 
 const genres = [
@@ -16,14 +16,21 @@ const genres = [
 
 function EditNotebookForm ({ hideForm }) {
   const dispatch = useDispatch();
-  const { notebookId } = useParams();
   const history = useHistory();
   const sessionUser = useSelector(state => state.session.user);
+  const notebooks = useSelector(state => {
+    return Object.values(state.notebook);
+  });
 
-  const [title, setTitle] = useState("")
-  const [genre, setGenre] = useState("");
-  const [hidden, setHidden] = useState(false);
+  const [title, setTitle] = useState(notebooks.title);
+  const [genre, setGenre] = useState(notebooks.genre);
+  const [hidden, setHidden] = useState(notebooks.hidden);
   const [errors, setErrors] = useState([]);
+
+  const updateTitle = (e) => setTitle(e.target.value);
+  const updateGenre = (e) => setGenre(e.target.value);
+  const updateHidden = (e) => setHidden(e.target.value);
+
 
   useEffect(() => {
     dispatch(getNotebooks());
@@ -33,13 +40,19 @@ function EditNotebookForm ({ hideForm }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (title === '') {
-      return
+    const payload = {
+      ...notebooks,
+      title,
+      genre,
+      hidden
+    };
+
+    const updatedNotebook = await dispatch(updateNotebook(payload));
+    if(updatedNotebook) {
+      hideForm();
+      history.push(`/notebooks/${sessionUser.username}`);
     }
 
-    await dispatch(notebookActions.createNotebook({ title, genre, hidden, userId: sessionUser.id }));
-    history.push(`/notebooks/${sessionUser.username}`)
-    hideForm();
   }
 
   const handleCancelClick = (e) => {
@@ -68,7 +81,7 @@ function EditNotebookForm ({ hideForm }) {
         <label> Title
           <input
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={updateTitle}
             placeholder='Name your Notebook here.... '
             required >
           </input>
@@ -79,7 +92,7 @@ function EditNotebookForm ({ hideForm }) {
           <div>
             <select
               value={genre}
-              onChange={(e) => setGenre(e.target.value)}
+              onChange={updateGenre}
               placeholder='Enlighten us with your wisdom'
               required >
               {genres.map((genre) => {
@@ -101,7 +114,7 @@ function EditNotebookForm ({ hideForm }) {
           </input>
         </label>
       </div>
-      <button type='submit'> Create My Notebook!</button>
+      <button type='submit'> Update My Notebook!</button>
       <button type="button" onClick={handleCancelClick}>Cancel</button>
     </form>
   )

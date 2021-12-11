@@ -67,8 +67,8 @@ export const createNotebook = (data) => async (dispatch) => {
   }
 }
 
-export const removeNotebook = (notebook) => async dispatch => {
-  const res = await csrfFetch(`/api/notebook/${notebook}`, {
+export const removeNotebook = (notebookId) => async dispatch => {
+  const res = await csrfFetch(`/api/notebook/${notebookId}`, {
     method: 'DELETE'
   });
   // console.log(notebook, '------------------');
@@ -77,6 +77,21 @@ export const removeNotebook = (notebook) => async dispatch => {
     const notebook = await res.json();
     // console.log(notebook, '*********************');
     dispatch(deleteNotebook(notebook));
+  }
+};
+
+export const updateNotebook = (data) => async(dispatch) => {
+  const res = await csrfFetch(`/api/notebook/${data.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+
+  if(res.ok) {
+    const notebook = await res.json();
+    dispatch(addNotebook(notebook));
   }
 }
 
