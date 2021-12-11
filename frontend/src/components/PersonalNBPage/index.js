@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import CreateNotebookPage from '../CreateNotebookPage';
 import EditNotebookForm from '../EditNotebookForm';
 // import * as notebookActions from '../../store/notebook';
-import { Route, NavLink, useHistory, useParams } from 'react-router-dom';
+import { Redirect, Route, NavLink, useHistory, useParams } from 'react-router-dom';
 import './PersonalNB.css';
 import React, { useEffect, useState } from 'react';
 import Fab from '../Fab';
@@ -18,25 +18,28 @@ function PersonalNBPage () {
   const notebooks = useSelector(state => {
     return Object.values(state.notebook);
   });
-  const notebook = useSelector(state => {
+  // const notebook = useSelector(state => {
 
-    return state.notebook[notebookId];
-  });
+  //   return state.notebook[notebookId];
+  // });
   const history = useHistory();
   console.log(notebookId);
 
   useEffect(() => {
     dispatch(getNotebooks());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
-    dispatch(getNotebook(notebook));
-  }, [dispatch, notebook]);
+    dispatch(getNotebook(notebookId));
+  }, [dispatch]);
 
   const handleDelete = async (e) => {
     e.preventDefault();
 
-    await dispatch(removeNotebook(notebookId))
+    if(!notebookId) {return}
+
+    await dispatch(removeNotebook(notebookId));
+    // await dispatch(getNotebooks());
     history.push(`/notebooks/${sessionUser.username}`)
   }
 

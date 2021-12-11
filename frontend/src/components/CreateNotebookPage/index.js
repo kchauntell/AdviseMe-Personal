@@ -49,7 +49,7 @@ function CreateNotebookPage ({ hideForm }) {
   const handleCancelClick = (e) => {
     e.preventDefault();
     hideForm();
-    history.push(`/notebooks/${ sessionUser.username }`)
+    history.push(`/notebooks/${sessionUser.username}`)
   };
 
   const handleChange = (e) => {
